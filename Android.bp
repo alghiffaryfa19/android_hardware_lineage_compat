@@ -707,3 +707,53 @@ cc_prebuilt_library_shared {
     compile_multilib: "both",
     check_elf_files: false,
 }
+
+cc_prebuilt_library_shared {
+    name: "libgatekeeper-v29",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm: {
+            srcs: ["vndk/v29/arm/libgatekeeper-v29.so"],
+        },
+        android_arm64: {
+            srcs: ["vndk/v29/arm64/libgatekeeper-v29.so"],
+        },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+}
+
+cc_library_shared {
+    name: "libkeymaster_shim",
+    srcs: [
+        "libkeymaster/AttestKeyResponse.cpp",
+        "libkeymaster/GenerateKeyResponse.cpp",
+        "libkeymaster/copy_size_and_data_from_buf.cpp",
+    ],
+    vendor: true,
+}
+
+cc_library_shared {
+    name: "android.hardware.audio.common@4.0-util-wrapper",
+    shared_libs: [
+        "android.hardware.audio.common@4.0",
+        "android.hardware.audio.common@4.0-util"
+    ],
+    srcs: ["audio_utils/AudioUtils_V4_0.cpp"],
+    header_libs: ["libaudio_system_headers"],
+    vendor: true,
+}
+
+cc_library_shared {
+    name: "android.hardware.audio.common@5.0-util-wrapper",
+    shared_libs: [
+        "android.hardware.audio.common@5.0",
+        "android.hardware.audio.common@5.0-util"
+    ],
+    srcs: ["audio_utils/AudioUtils_V5_0.cpp"],
+    header_libs: ["libaudio_system_headers"],
+    vendor: true,
+}
